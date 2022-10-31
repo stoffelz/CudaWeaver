@@ -13,6 +13,7 @@
 #include "ColorWeaver.h"
 #include "color.h"
 #include "lodepng.h"
+#include "cuda_profiler_api.h"
 
 bool loadImage(float** data, uint* width, uint* height, const char* fileName, bool grayscale) {
 	unsigned char* rawImgData;
@@ -209,6 +210,8 @@ int main(int argc, char *argv[]) {
 		return;
 	}
 
+	cudaProfilerStart();
+
 	data = rescale(data, width, height, resolution, grayScale);
 	Point* points = getCircumfrancePoints(pointCount);
 
@@ -238,6 +241,8 @@ int main(int argc, char *argv[]) {
 		std::cout << i << ": " << loss << std::endl;
 		prevLoss = loss;
 	}	
+
+	cudaProfilerStop();
 	weaver->saveCurrentImage(outfilename);
 
 	if (instructionsFilePath != nullptr) {

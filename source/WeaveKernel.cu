@@ -81,11 +81,8 @@ __global__ void dev_drawLine(float* d_weaveBlock,
 }
 
 __global__ void dev_calculateLoss(float* d_weaveBlock, 
-    float* d_tempWeaveBlock,
     int* d_connectionMatrix,
-    float* d_currentImage,
     float* d_targetImage,
-    Point* d_points,
     float* d_scores,
     float* d_gausianKernel,
     int kernelSize,

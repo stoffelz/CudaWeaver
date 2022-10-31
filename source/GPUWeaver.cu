@@ -149,7 +149,7 @@ float GPUWeaver::weaveIteration() {
 	cudaEventCreate(&stop); 
 	cudaEventRecord(start);
     // Compute loss
-    dev_calculateLoss<<<grid, block, BLOCK_X * BLOCK_Y * sizeof(float)>>>(d_weaveBlock, d_tempWeaveBlock, d_connectionMatrix, d_currentImage, d_targetImage, d_points, d_scores, d_gausianKernel, kernelSize, currentPoint, pointCount, resolution);
+    dev_calculateLoss<<<grid, block, BLOCK_X * BLOCK_Y * sizeof(float)>>>(d_weaveBlock, d_connectionMatrix, d_targetImage, d_scores, d_gausianKernel, kernelSize, currentPoint, pointCount, resolution);
     err = cudaGetLastError();
     if (err != cudaSuccess) 
         printf("Error: %s\n", cudaGetErrorString(err));
